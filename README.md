@@ -1,1 +1,1 @@
-Responsive portfolio website using HTML, CSS and Javascript. 
+Responsive portfolio website using HTML, CSS and Javascript.
