@@ -195,3 +195,36 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+
+// Wait until the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Make sure emailjs is available
+  if (!window.emailjs) {
+    console.error("emailjs is not loaded. Make sure the script tag is correct.");
+    return;
+  }
+
+  emailjs.init("qKAeCTcVV7EouW3Fm"); // your public key
+
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    status.textContent = "Sending...";
+    status.style.color = "gray";
+
+    emailjs.sendForm("service_9op70we", "template_ay1dbyg", this)
+      .then(() => {
+        status.textContent = "✅ Message sent successfully!";
+        status.style.color = "green";
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Failed to send message:", error);
+        status.textContent = "❌ Something went wrong. Please try again.";
+        status.style.color = "red";
+      });
+  });
+});
